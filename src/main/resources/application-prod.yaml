@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://case-lab-db:5432/
+
+  jpa:
+    show-sql: false

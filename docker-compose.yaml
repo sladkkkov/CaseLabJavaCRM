@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  case-lab-db:
+    image: postgres:14-alpine
+    container_name: case-lab-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+    restart: always
+    networks:
+      - case-lab
+    healthcheck:
+      test: [ "CMD", "pg_isready","-d","postgres","-U","postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - /var/lib/postgresql/data
+
+  case-lab-java-crm:
+    image:  case-lab-java-crm
+    build:
+      dockerfile: Dockerfile
+    restart: always
+    container_name: case-lab-java-crm
+    networks:
+      - case-lab
+    ports:
+      - "8080:8080"
+    depends_on:
+      case-lab-db:
+        condition: service_healthy
+
+networks:
+   case-lab:
+     driver: bridge
+
