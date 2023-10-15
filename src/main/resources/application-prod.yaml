@@ -1,6 +1,10 @@
 spring:
   datasource:
     url: jdbc:postgresql://case-lab-db:5432/
+    name: ${{ secrets.POSTGRES_DB }}
+    username: ${{ secrets.POSTGRES_USER }}
+    password: ${{ secrets.POSTGRES_PASSWORD }}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     show-sql: false

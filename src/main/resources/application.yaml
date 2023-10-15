@@ -5,12 +5,6 @@ spring:
   application:
     name: CaseLab
 
-  datasource:
-    name: ${{ secrets.POSTGRES_DB }}
-    username:  ${{ secrets.POSTGRES_USER }}
-    password: ${{ secrets.POSTGRES_PASSWORD }}
-    driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
