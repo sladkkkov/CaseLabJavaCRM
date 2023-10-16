@@ -1,5 +1,4 @@
 name: Test coverage
-
 on:
   pull_request:
     branches:
