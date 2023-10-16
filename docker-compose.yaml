@@ -17,7 +17,7 @@ services:
       test: [ "CMD", "pg_isready","-d","postgres","-U","postgres" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 4
     volumes:
       - /var/lib/postgresql/data
 
