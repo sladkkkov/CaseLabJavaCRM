@@ -1,0 +1,34 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+  
+  delete-recent-container:
+    runs-on: self-hosted 
+    steps:
+      - name: Remove recent containers
+        run: docker-compose down
+        
+      - name: Remove data
+        run: docker system prune -a -f
+ 
+  deploy:
+      runs-on: self-hosted 
+      needs: delete-recent-container
+      steps:
+        - name: checkout repo
+          uses: actions/checkout@v3
+        - name: docker-compose
+          run: docker-compose up -d
