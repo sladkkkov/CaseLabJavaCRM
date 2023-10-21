@@ -48,6 +48,7 @@ jobs:
      
   delete-recent-container:
      name: delete-recent-container
+     needs: push_compose
      runs-on: ubuntu-latest
      steps: 
        -
@@ -63,6 +64,7 @@ jobs:
       
   deploy:
      name: deploy
+     needs: [push_compose, delete-recent-container]
      runs-on: ubuntu-latest
      steps: 
        -
