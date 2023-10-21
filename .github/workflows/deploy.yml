@@ -8,7 +8,7 @@ on:
 
 jobs:  
   export_env:
-     name: export_env
+     name: Export_env
      runs-on: ubuntu-latest
      steps: 
        -
@@ -24,23 +24,24 @@ jobs:
             export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
  
   push_compose:
-    name: push docker-compose.yaml to remote server
+    name: Push docker-compose.yaml to remote server
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Copy docker-compose.yaml via SSH
-        uses: appleboy/scp-action@v1.0
+        uses: appleboy/scp-action@master
         with:
           host: 178.21.8.3
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
-          working-directory: .
           source: "docker-compose.yaml"
           target: "/home/${{ secrets.SSH_USER }}"
           overwrite: true
   
   build_image:
     runs-on: ubuntu-latest
+    name: Build app image
     steps:
     -
      name: Checkout
@@ -62,7 +63,7 @@ jobs:
         tags: sladkkov/case-lab-java-crm:latest
      
   delete_recent_container:
-     name: delete_recent_container
+     name: Delete recent container
      runs-on: ubuntu-latest
      steps: 
        -
@@ -78,7 +79,7 @@ jobs:
             docker rmi sladkkov/case-lab-java-crm
       
   deploy:
-     name: deploy
+     name: Deploy
      needs: [push_compose, delete_recent_container, build_image, export_env]
      runs-on: ubuntu-latest
      steps: 
