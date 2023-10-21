@@ -59,8 +59,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |  
-           docker-compose down \ 
-           docker system prune -a -f \           
+           docker-compose down \        
       
   deploy:
      name: deploy
