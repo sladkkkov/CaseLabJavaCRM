@@ -34,18 +34,18 @@ jobs:
      needs: build_image
      steps:
      -
-      name: Remove recent containers
-      run: docker-compose down
-     -  
-      name: Remove data
-      run: docker system prune -a -f
-     -
       name: Update docker compose file
       run: | 
        mkdir CaseLabJavaCRM \
        cd CaseLabJavaCRM \
        curl -o docker-compose.yaml https://raw.githubusercontent.com/sladkkkov/CaseLabJavaCRM/develop/docker-compose.yaml \    
-       
+     -
+      name: Remove recent containers
+      run: docker-compose down
+     -  
+      name: Remove data
+      run: docker system prune -a -f
+           
   deploy:
       runs-on: self-hosted 
       needs: delete-recent-container
