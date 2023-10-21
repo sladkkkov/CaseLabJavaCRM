@@ -7,23 +7,45 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  build:
+  build_image:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-  
-  delete-recent-container:
-    runs-on: self-hosted 
-    steps:
-      - name: Remove recent containers
-        run: docker-compose down
+    -
+     name: Checkout
+     uses: actions/checkout@v3
+    - 
+     name: Login to hub
+     uses: docker/login-action@v3
+     with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    -
+     name: Set up Docker Buildx
+     uses: docker/setup-buildx-action@v3  
+    -
+      name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: sladkkov/case-lab-java-crm:latest
         
-      - name: Remove data
-        run: docker system prune -a -f
- 
+  delete-recent-container:
+     runs-on: self-hosted
+     needs: build_image
+     steps:
+     -
+      name: Remove recent containers
+      run: docker-compose down
+     -  
+      name: Remove data
+      run: docker system prune -a -f
+     -
+      name: Update docker compose file
+      run: | 
+       mkdir CaseLabJavaCRM \
+       cd CaseLabJavaCRM \
+       curl https://raw.github.com/sladkkkov/CaseLabJavaCRM/develop//docker-compose.yaml \    
+       
   deploy:
       runs-on: self-hosted 
       needs: delete-recent-container
