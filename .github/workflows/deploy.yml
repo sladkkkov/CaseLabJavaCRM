@@ -58,7 +58,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |  
-           docker-compose down \        
+            docker stop case-lab-java-crm
+            docker rm case-lab-java-crm
+            docker rmi sladkkov/case-lab-java-crm
       
   deploy:
      name: deploy
