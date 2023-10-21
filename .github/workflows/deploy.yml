@@ -24,7 +24,7 @@ jobs:
           target: "/home/${{ secrets.SSH_USER }}"
           overwrite: true
   
-  build_image:
+  build-image:
     runs-on: ubuntu-latest
     steps:
     -
@@ -48,7 +48,6 @@ jobs:
      
   delete-recent-container:
      name: delete-recent-container
-     needs: push_compose
      runs-on: ubuntu-latest
      steps: 
        -
@@ -63,7 +62,7 @@ jobs:
       
   deploy:
      name: deploy
-     needs: [push_compose, delete-recent-container]
+     needs: [push_compose, delete-recent-container, build-image]
      runs-on: ubuntu-latest
      steps: 
        -
