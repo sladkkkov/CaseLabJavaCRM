@@ -5,13 +5,4 @@ comment:
   require_base: true
   require_head: true
 
-coverage:
-  range: "70..100"
-  round: down
-  precision: 2
-  status:
-    project:
-      default:
-        target: 20%
-        threshold: 0%
 
