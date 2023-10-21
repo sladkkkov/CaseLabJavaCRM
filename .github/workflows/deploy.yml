@@ -6,13 +6,27 @@ on:
   pull_request:
     branches: [ "develop" ]
 
-jobs:
+jobs:  
+  export_env:
+     name: export_env
+     runs-on: ubuntu-latest
+     steps: 
+       -
+        name: Connect with SSH and export
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: 178.21.8.3
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |  
+            export POSTGRES_DB = ${{ secrets.POSTGRES_DB }}
+            export POSTGRES_USER = ${{ secrets.POSTGRES_USER }}
+            export POSTGRES_PASSWORD = ${{ secrets.POSTGRES_PASSWORD }}
  
   push_compose:
     name: Push docker-compose.yaml to remote server
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - name: Copy docker-compose.yaml via SSH
         uses: appleboy/scp-action@master
         with:
@@ -24,7 +38,7 @@ jobs:
           target: "/home/${{ secrets.SSH_USER }}"
           overwrite: true
   
-  build-image:
+  build_image:
     runs-on: ubuntu-latest
     steps:
     -
@@ -46,8 +60,8 @@ jobs:
         push: true
         tags: sladkkov/case-lab-java-crm:latest
      
-  delete-recent-container:
-     name: delete-recent-container
+  delete_recent_container:
+     name: delete_recent_container
      runs-on: ubuntu-latest
      steps: 
        -
@@ -64,7 +78,7 @@ jobs:
       
   deploy:
      name: deploy
-     needs: [push_compose, delete-recent-container, build-image]
+     needs: [push_compose, delete_recent_container, build_image, export_env]
      runs-on: ubuntu-latest
      steps: 
        -
@@ -74,4 +88,6 @@ jobs:
           host: 178.21.8.3
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          script: docker-compose up
+          script: |
+            docker-compose up
+          
