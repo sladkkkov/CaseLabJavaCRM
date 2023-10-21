@@ -77,10 +77,10 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |  
-            docker stop case-lab-java-crm
-            docker rm case-lab-java-crm
-            docker rmi sladkkov/case-lab-java-crm
-      
+            docker container stop $(docker container ls -q)
+            docker container prune
+            docker image prune -f
+
   deploy:
      name: Deploy
      needs: [push_compose, delete_recent_container, build_image, export_env]
