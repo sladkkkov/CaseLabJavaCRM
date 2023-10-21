@@ -1,17 +1,8 @@
 comment:
-  layout: "reach, diff, flags, files"
+  layout: " diff, flags, files"
   behavior: default
   require_changes: false
-  require_base: no
-  require_head: yes
+  require_base: true
+  require_head: true
 
-coverage:
-  range: "70..100"
-  round: down
-  precision: 2
-  status:
-    project:
-      default:
-        target: 60%
-        threshold: 0%
 
