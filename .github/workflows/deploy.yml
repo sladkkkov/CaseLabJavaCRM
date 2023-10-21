@@ -44,7 +44,7 @@ jobs:
       run: | 
        mkdir CaseLabJavaCRM \
        cd CaseLabJavaCRM \
-       curl https://raw.github.com/sladkkkov/CaseLabJavaCRM/develop//docker-compose.yaml \    
+       curl -o docker-compose.yaml https://raw.githubusercontent.com/sladkkkov/CaseLabJavaCRM/develop/docker-compose.yaml \    
        
   deploy:
       runs-on: self-hosted 
