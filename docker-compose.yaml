@@ -22,13 +22,15 @@ services:
       - /var/lib/postgresql/data
 
   case-lab-java-crm:
-    image:  sladkkov/case-lab-java-crm:latest
+    build:
+      dockerfile: Dockerfile
+    image:  case-lab-java-crm
     restart: always
     container_name: case-lab-java-crm
     networks:
       - case-lab
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       case-lab-db:
         condition: service_healthy

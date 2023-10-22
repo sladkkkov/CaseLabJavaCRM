@@ -11,6 +11,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+
   datasource:
     driver-class-name: org.postgresql.Driver
 
