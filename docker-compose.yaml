@@ -22,9 +22,7 @@ services:
       - /var/lib/postgresql/data
 
   case-lab-java-crm:
-    build:
-      dockerfile: Dockerfile
-    image:  case-lab-java-crm
+    image:  sladkkov/case-lab-java-crm:latest
     restart: always
     container_name: case-lab-java-crm
     networks:
