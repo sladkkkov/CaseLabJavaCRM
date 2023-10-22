@@ -28,7 +28,7 @@ services:
     networks:
       - case-lab
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
       case-lab-db:
         condition: service_healthy
