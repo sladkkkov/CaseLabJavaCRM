@@ -8,6 +8,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  driver-class-name: org.postgresql.Driver
 
   profiles:
     active: @profileActive@
