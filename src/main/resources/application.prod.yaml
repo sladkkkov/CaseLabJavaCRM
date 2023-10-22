@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://case-lab-db:5432/
+    url: jdbc:postgresql://case-lab-db:5432/postgres
     name: ${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
