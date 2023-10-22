@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://case-lab-db:5432/postgres
-    name: ${{ secrets.POSTGRES_DB }}
-    username: ${{ secrets.POSTGRES_USER }}
-    password: ${{ secrets.POSTGRES_PASSWORD }}
+    name: postgres
+    username: postgres
+    password: postgres
   jpa:
     show-sql: false
