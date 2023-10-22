@@ -76,6 +76,13 @@
                 <profileActive>prod</profileActive>
             </properties>
         </profile>
+        <profile>
+            <id>build</id>
+            <properties>
+                <build.profile.id>build</build.profile.id>
+                <profileActive>build</profileActive>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
