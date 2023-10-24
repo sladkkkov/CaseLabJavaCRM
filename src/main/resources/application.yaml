@@ -10,7 +10,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     generate-ddl: true
 
   datasource:
