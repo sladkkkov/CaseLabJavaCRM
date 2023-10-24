@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: @profileActive@
   application:
     name: CaseLab
 
@@ -14,5 +16,3 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
 
-  profiles:
-    active: @profileActive@
