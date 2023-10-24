@@ -79,7 +79,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |  
             docker container stop $(docker container ls -q)
-            docker container prune
+            docker container prune -f
             docker image prune -f
 
   deploy:
