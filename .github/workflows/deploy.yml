@@ -19,13 +19,13 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |  
-             export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-             export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-             export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-             echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} > .env
-             echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
-             echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
-             export $(cat .env | xargs) && env
+             export POSTGRES_DB=${{ secrets.POSTGRES_DB }} 
+             export POSTGRES_USER=${{ secrets.POSTGRES_USER }} 
+             export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} 
+             echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} > .env 
+             echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env 
+             echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env 
+             export $(cat .env | xargs) && env 
  
   push_compose:
     name: Push docker-compose.yaml to remote server
@@ -78,9 +78,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |  
-            docker container stop $(docker container ls -q)
-            docker container prune
-            docker image prune -f
+            docker container stop $(docker container ls -q) 
+            docker rm $(docker ps -a -q) 
+            docker rmi $(docker images -q)
 
   deploy:
      name: Deploy
